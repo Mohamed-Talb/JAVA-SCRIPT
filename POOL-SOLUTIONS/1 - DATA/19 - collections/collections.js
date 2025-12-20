@@ -24,25 +24,26 @@ function strToArr(Arg)
 }
 function strToSet(Arg)
 {
-    
+    return new Set(Array.from(str));
 } 
 function mapToObj(Arg)
 {
-
+    return Object.fromEntries(myMap);
 } 
 function objToArr(Arg)
 {
-
+    return Object.entries(obj);
 }
 function objToMap(Arg)
 {
-
+    return new Map(Object.entries(Arg));
 } 
 function arrToObj(Arg)
 {
-
+    return Object.fromEntries(Arg)
 }
 function strToObj(Arg)
 {
-
+    return Object.fromEntries(Array.from(Arg));
 }
+
