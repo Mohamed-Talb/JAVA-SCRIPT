@@ -1,0 +1,17 @@
+function hasCity(country, Arr)
+{
+    return function(city)
+    {
+        const len = Arr.length;
+        for (let i = 0; i < len; i++)
+        {
+            if (Arr[i] === city)
+                return `${city} is a city from ${country}`
+        }
+        return `${city} is not a city from ${country}`
+    }
+}
+
+const country = ["Tetouan", "Tanger", "Chefchaoun", "Houcima"];
+console.log(hasCity("Chamal", country)("Tanger"));
+console.log(hasCity("Chamal", country)("Meknas"));

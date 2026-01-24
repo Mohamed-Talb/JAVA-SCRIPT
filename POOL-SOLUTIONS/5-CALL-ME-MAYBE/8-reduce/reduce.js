@@ -59,5 +59,5 @@ try {
     console.log(reduceRight([1,2,3], adder));    // -> 6
 } catch(err)
 {
-    console.log(err);
+    console.log(err.message);
 }
