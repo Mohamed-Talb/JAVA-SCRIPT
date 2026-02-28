@@ -1,5 +1,3 @@
-
-
 function flags(obj)
 {
 	let RetObj = {alias:{h: 'help'}, description: ""};
