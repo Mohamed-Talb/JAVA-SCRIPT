@@ -14,6 +14,6 @@ async function getJSON(path, params)
 	return result.data;
 }
 
-// getJSON("https://jsonplaceholder.typicode.com/posts", {id:1})
-// .then(data => console.log(data))
-// .catch(err => console.log(err))
+getJSON("https://jsonplaceholder.typicode.com/posts", {id:1})
+.then(data => console.log(data))
+.catch(err => console.log(err))
