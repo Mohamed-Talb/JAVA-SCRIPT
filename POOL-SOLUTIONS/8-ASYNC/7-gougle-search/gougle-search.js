@@ -5,20 +5,24 @@ async function queryServers(serverName, q)
 {
 	if (!serverName)
 		throw new Error("serverName required");
-	let url1 = `/${serverName}?q=${q}`;
-	let url2 = `/${serverName}_backup?q=${q}`;
-	return Promise.race([getJSON(url1), getJSON(url2)])
+	let main = getJSON(`/${serverName}?q=${q}`);
+	let backup = getJSON(`/${serverName}_backup?q=${q}`);
+	return Promise.race([main, backup])
 }
 
 async function gougleSearch(q)
 {
-	function timer()
+	
+	const timeout  = new Promise((_, r) => 
+		setTimeout(() => r(new Error("timeout")), 80));
+	try 
 	{
-		return new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
+		const allServersResponse = Promise.all([queryServers("web", q),queryServers("image", q), queryServers("video", q)]);
+		let result = await Promise.race([allServersResponse, timeout])
+		return {"web":result[0], "image": result[1], "video":result[2]};
 	}
-	const allServersResponse = Promise.all([queryServers("Web", q),queryServers("image", q),queryServers("video", q)]);
-	return await Promise.race([allServersResponse, timer()]).then(values => ({"Web":values[0], "image":values[1], "video": values[2]}));
+	catch(error)
+	{
+		return error;
+	}
 }
-
-queryServers("web", "hello+world").then(value => console.log(value));
-console.log(gougleSearch("hello+world"));
